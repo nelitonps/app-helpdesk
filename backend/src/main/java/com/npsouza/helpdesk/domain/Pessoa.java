@@ -2,7 +2,6 @@ package com.npsouza.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.npsouza.helpdesk.domain.enums.Perfil;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.io.Serializable;

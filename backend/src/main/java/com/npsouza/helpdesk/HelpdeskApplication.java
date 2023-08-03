@@ -1,13 +1,49 @@
 package com.npsouza.helpdesk;
 
+import com.npsouza.helpdesk.domain.Chamado;
+import com.npsouza.helpdesk.domain.Cliente;
+import com.npsouza.helpdesk.domain.Tecnico;
+import com.npsouza.helpdesk.domain.enums.Perfil;
+import com.npsouza.helpdesk.domain.enums.Prioridade;
+import com.npsouza.helpdesk.domain.enums.Status;
+import com.npsouza.helpdesk.repositories.IChamadoRepository;
+import com.npsouza.helpdesk.repositories.IClienteRepository;
+import com.npsouza.helpdesk.repositories.ITecnicoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+
 @SpringBootApplication
-public class HelpdeskApplication {
+public class HelpdeskApplication implements CommandLineRunner {
+	//Ao implementar CommandLineRunner sera preciso implementar o metodo Run que vai rodar sempre que inicia a aplicação
+
+	//Injetando dependencias das interfaces
+	@Autowired
+	private ITecnicoRepository tecnicoRepository;
+	@Autowired
+	private IClienteRepository clienteRepository;
+	@Autowired
+	private IChamadoRepository chamadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HelpdeskApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		Tecnico tec1 = new Tecnico(null, "Mauro Silva", "15465126548", "mauro@gmail.com", "123");
+		tec1.addPerfis(Perfil.ADMIN);
+
+		Cliente cli1 = new Cliente(null, "Lair Oliveira", "75465126523", "lair@gmail.com", "123");
+
+		Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", tec1, cli1);
+
+		tecnicoRepository.saveAll(Arrays.asList(tec1));
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		chamadoRepository.saveAll(Arrays.asList(c1));
+
+	}
 }
