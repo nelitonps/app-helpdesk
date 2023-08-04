@@ -1,6 +1,7 @@
 package com.npsouza.helpdesk.controller;
 
 import com.npsouza.helpdesk.domain.Tecnico;
+import com.npsouza.helpdesk.domain.dtos.TecnicoDTO;
 import com.npsouza.helpdesk.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,9 +22,9 @@ public class TecnicoController {
     private TecnicoService tecnicoService;
 
     @GetMapping(value = "/{id}") //Usando variavel de Path
-    public ResponseEntity<Tecnico> findByIdController(@PathVariable Integer id){ //Quando usa variavel de Path tem que usar @PathVariable
+    public ResponseEntity<TecnicoDTO> findByIdController(@PathVariable Integer id){ //Quando usa variavel de Path tem que usar @PathVariable
         Tecnico obj = tecnicoService.findByIdService(id);
-        return ResponseEntity.ok().body(obj); //No body(corpo dessa resposta) o objeto
+        return ResponseEntity.ok().body(new TecnicoDTO(obj)); //No body(corpo dessa resposta) o objeto
     }
 
 }
