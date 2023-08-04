@@ -1,5 +1,6 @@
 package com.npsouza.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.npsouza.helpdesk.domain.enums.Perfil;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ public class Tecnico extends Pessoa{
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore //Para corrigir erro de serialização nas buscas pelo Postman/Insominia
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
