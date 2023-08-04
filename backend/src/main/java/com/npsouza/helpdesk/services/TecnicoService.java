@@ -2,6 +2,7 @@ package com.npsouza.helpdesk.services;
 
 import com.npsouza.helpdesk.domain.Tecnico;
 import com.npsouza.helpdesk.repositories.ITecnicoRepository;
+import com.npsouza.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class TecnicoService {
 
     public Tecnico findByIdService(Integer id){
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
-        return obj.orElse(null); //Se não encontrar o objeto retorna null por enquanto
+        return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! Id: " + id)); //Se não encontrar o objeto retorna null por enquanto
     }
 
 }
