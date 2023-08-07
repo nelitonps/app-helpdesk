@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class TecnicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDTO> createController(@RequestBody TecnicoDTO objDTO){
+    public ResponseEntity<TecnicoDTO> createController(@Valid @RequestBody TecnicoDTO objDTO){ //Usar @Valid para validar os campos especificados em TecnicoDTO
         Tecnico newObj = tecnicoService.createService(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
